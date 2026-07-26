@@ -60,8 +60,8 @@ public class BallMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.CompareTag("OutArea")) {
+            gameManager.onBallDestroyed();
             Destroy(gameObject);
-            //gameManager.GameOver();
         }
     }
 }

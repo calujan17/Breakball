@@ -20,7 +20,7 @@ public class Brick : MonoBehaviour
 
             if (hp <= 0) {
                 gameManager.UpdateScore(brickValue);
-                gameManager.BrickDestroyed();
+                gameManager.onBrickDestroyed();
                 lootManager.SpawnLootItem(gameObject.transform.position);
                 Destroy(gameObject);
             }

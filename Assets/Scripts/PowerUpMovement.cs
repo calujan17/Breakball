@@ -32,8 +32,6 @@ public class PowerUpMovement : MonoBehaviour
                     Destroy(gameObject);
                     break;
                 case POWERUPS.LONGPADDLE:
-                    //StartCoroutine(ChangePaddleSize(2.0f));
-                    //StartCoroutine(LongPaddleCountdownRoutine());
                     gameManager.LongPaddlePowerUp();
                     Destroy(gameObject);
                     break;

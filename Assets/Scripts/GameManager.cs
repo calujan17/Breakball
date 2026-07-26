@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     public GameObject paddle;
     public Animator paddleAnimator;
 
-    private int ballCount;
+    private int ballCount = 0;
     private int brickCount;
     private int score;
     private bool isGamePaused = false;
@@ -25,9 +25,6 @@ public class GameManager : MonoBehaviour
 
     // Update is called once per frame
     void Update(){
-        //ballCount = FindObjectsByType<BallMovement>(FindObjectsSortMode.None).Length;
-        //brickCount = FindObjectsByType<Brick>(FindObjectsSortMode.None).Length;
-        
         //End Game is Ball Count is 0
         if (ballCount == 0 && isGameActive) {
             GameOver();
@@ -49,7 +46,7 @@ public class GameManager : MonoBehaviour
         UpdateHUD();
     }
 
-    public void BrickDestroyed() {
+    public void onBrickDestroyed() {
         brickCount--;
 
         UpdateHUD();
@@ -59,15 +56,25 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void onBallDestroyed() {
+        ballCount--;
+
+        UpdateHUD();
+
+        if (ballCount <= 0) {
+            GameOver();
+        }
+    }
 
     public void GameStart() {
-        CreateBall(new Vector3(0f, -3f));
         brickCount = FindObjectsByType<Brick>(FindObjectsSortMode.None).Length;
-        ballCount = FindObjectsByType<BallMovement>(FindObjectsSortMode.None).Length;
+        CreateBall(new Vector3(0f, -3f));
     }
 
     public void CreateBall(Vector3 startPosition) {
         Instantiate(ball, startPosition, ball.transform.rotation);
+        ballCount++;
+        UpdateHUD();
     }
 
     public void GameOver() {
