@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class LootManager : MonoBehaviour
 {
+    [SerializeField] private float dropChance = .30f;
+
     public GameObject[] lootItems;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -19,7 +21,7 @@ public class LootManager : MonoBehaviour
 
         int randItem = Random.Range(0, lootItems.Length);
 
-        if(Random.Range(0.0f, 1.0f) <= 0.3f) {
+        if(Random.Range(0.0f, 1.0f) <= dropChance) {
             Instantiate(lootItems[randItem], lootPosition, lootItems[randItem].transform.rotation);
         }
     }

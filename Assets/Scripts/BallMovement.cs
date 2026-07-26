@@ -1,11 +1,12 @@
 using UnityEngine;
-//Test Update Github
 public class BallMovement : MonoBehaviour
 {
 
     public float ballSpeed = 10.0f;
     public AudioSource audio;
     private Rigidbody2D rb;
+    private const float MinimumVerticalVelocity = 3f;
+    private const int WallPentalty = 5;
 
     private GameManager gameManager;
 
@@ -36,15 +37,15 @@ public class BallMovement : MonoBehaviour
         } else {
             //Check if Velocity is too horizontal then change
             if (rb.linearVelocityY > -2 && rb.linearVelocity.y <= 0) {
-                rb.linearVelocity = new Vector2(rb.linearVelocityX, -3).normalized * ballSpeed;
+                rb.linearVelocity = new Vector2(rb.linearVelocityX, -MinimumVerticalVelocity).normalized * ballSpeed;
             }
             else if (rb.linearVelocityY < 2 && rb.linearVelocity.y > 0) {
-                rb.linearVelocity = new Vector2(rb.linearVelocityX, 3).normalized * ballSpeed;
+                rb.linearVelocity = new Vector2(rb.linearVelocityX, MinimumVerticalVelocity).normalized * ballSpeed;
             }
          }
 
         if (collision.gameObject.CompareTag("Wall")) {
-            gameManager.UpdateScore(-5);
+            gameManager.UpdateScore(-WallPentalty);
         }
 
         if (audio.isActiveAndEnabled) {

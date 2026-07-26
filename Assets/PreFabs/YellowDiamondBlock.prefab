@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4018742298762468396}
   - component: {fileID: 4233467783146521896}
   - component: {fileID: 5358664517660248615}
+  - component: {fileID: 5917304970665675503}
   m_Layer: 0
   m_Name: YellowDiamondBlock
   m_TagString: Brick
@@ -143,3 +144,17 @@ PolygonCollider2D:
       - {x: 0, y: -0.25}
       - {x: 0.5, y: 0}
   m_UseDelaunayMesh: 1
+--- !u!114 &5917304970665675503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1650185500262666436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 904a03216709817408dd6c65d241259a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Brick
+  hp: 1
+  brickValue: 10
