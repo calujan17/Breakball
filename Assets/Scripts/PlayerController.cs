@@ -3,18 +3,16 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 15.0f;
+    [SerializeField] private float moveSpeed = 15.0f;
     private float limitX;
     private InputAction moveAction;
     private InputAction pauseAction;
     private float playArea;
-    private Animator animator;
     private GameManager gameManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start(){
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        animator = GetComponent<Animator>();
 
         moveAction = InputSystem.actions.FindAction("Move");
         moveAction.Enable();
@@ -45,10 +43,6 @@ public class PlayerController : MonoBehaviour
 
         Vector3 paddlePos = transform.position;
 
-        if (horizontalInput > 0) {
-            Debug.Log(horizontalInput);
-        }
-
         paddlePos.x += horizontalInput * moveSpeed * Time.deltaTime;
 
         //Keep Paddle inside background
@@ -59,10 +53,5 @@ public class PlayerController : MonoBehaviour
         if (pauseAction.WasPressedThisFrame()) {
             gameManager.PauseGame();
         }
-
-    }
-
-    public void LongPaddle() {
-        animator.Play("LongPaddle");
     }
 }

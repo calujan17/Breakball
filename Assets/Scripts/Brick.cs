@@ -3,8 +3,8 @@ using UnityEngine.InputSystem;
 
 public class Brick : MonoBehaviour
 {
-    public int hp = 1;
-    public int brickValue;
+    [SerializeField] private int hp = 1;
+    [SerializeField] private int brickValue;
     private GameManager gameManager;
     private LootManager lootManager;
 
@@ -20,7 +20,7 @@ public class Brick : MonoBehaviour
 
             if (hp <= 0) {
                 gameManager.UpdateScore(brickValue);
-                gameManager.onBrickDestroyed();
+                gameManager.OnBrickDestroyed();
                 lootManager.SpawnLootItem(gameObject.transform.position);
                 Destroy(gameObject);
             }

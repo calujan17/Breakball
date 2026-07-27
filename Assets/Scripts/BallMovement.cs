@@ -2,8 +2,8 @@ using UnityEngine;
 public class BallMovement : MonoBehaviour
 {
 
-    public float ballSpeed = 10.0f;
-    public AudioSource audio;
+    [SerializeField] private float ballSpeed = 10.0f;
+    [SerializeField] private AudioSource audio;
     private Rigidbody2D rb;
     private const float MinimumVerticalVelocity = 3f;
     private const int WallPentalty = 5;
@@ -22,7 +22,7 @@ public class BallMovement : MonoBehaviour
     // Update is called once per frame
     void Update(){
 
-        if(rb.linearVelocity.sqrMagnitude != Mathf.Pow(ballSpeed, 2)) {
+        if (!Mathf.Approximately(rb.linearVelocity.magnitude, ballSpeed)) {
             Vector2 dir = rb.linearVelocity;
             rb.linearVelocity = dir.normalized * ballSpeed;
         }
@@ -60,7 +60,7 @@ public class BallMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.CompareTag("OutArea")) {
-            gameManager.onBallDestroyed();
+            gameManager.OnBallDestroyed();
             Destroy(gameObject);
         }
     }

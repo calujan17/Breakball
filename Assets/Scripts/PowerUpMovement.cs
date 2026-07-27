@@ -5,9 +5,10 @@ using UnityEngine;
 public class PowerUpMovement : MonoBehaviour
 {
 
-    public float speed = 1.0f;
-    public enum POWERUPS { BALL3, LONGPADDLE, STICKYPADDLE };
-    public POWERUPS powerup;
+    
+    private enum POWERUPS { BALL3, LONGPADDLE, STICKYPADDLE };
+    [SerializeField] private POWERUPS powerup;
+    [SerializeField] private float speed = 7.5f;
 
     private GameManager gameManager;
 
@@ -42,29 +43,6 @@ public class PowerUpMovement : MonoBehaviour
                     Debug.Log("Unknown PowerUp");
                     break;
             }
-
         }
     }
-
-    private IEnumerator LongPaddleCountdownRoutine() {
-        yield return new WaitForSeconds(10);
-        StartCoroutine(ChangePaddleSize(0.5f));
-    }
-
-    // Smoothly scale to double size over 1 second
-    IEnumerator ChangePaddleSize(float sizeChange) {
-        Vector3 startScale = gameManager.paddle.transform.localScale;
-        Vector3 endScale = startScale * sizeChange;
-        float duration = 0.5f;
-        float elapsed = 0;
-        while (elapsed < duration) {
-            gameManager.paddle.transform.localScale = Vector3.Lerp(startScale, endScale, elapsed / duration);
-            elapsed += Time.deltaTime;
-            yield return new WaitForSeconds(0.0001f);
-        }
-        gameManager.paddle.transform.localScale = endScale;
-        Destroy(gameObject);
-    }
-
-
 }

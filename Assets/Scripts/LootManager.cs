@@ -4,7 +4,7 @@ public class LootManager : MonoBehaviour
 {
     [SerializeField] private float dropChance = .30f;
 
-    public GameObject[] lootItems;
+    [SerializeField] private GameObject[] lootItems;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

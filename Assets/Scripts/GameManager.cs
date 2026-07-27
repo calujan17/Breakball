@@ -5,35 +5,29 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public bool isGameActive;
-    public TextMeshProUGUI scoreText;
-    public Button restartButton;
-    public GameObject ball;
-    public GameObject paddle;
-    public Animator paddleAnimator;
+
+    private enum GAMESTATES { ACTIVE, PAUSED, OVER };
+
+    [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private Button restartButton;
+    [SerializeField] private GameObject ball;
+    [SerializeField] private GameObject paddle;
+    [SerializeField] private Animator paddleAnimator;
 
     private int ballCount = 0;
     private int brickCount;
     private int score;
-    private bool isGamePaused = false;
+    private GAMESTATES currState;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start(){
-        isGameActive = true;
-        score = 0;
+        currState = GAMESTATES.ACTIVE;
         GameStart();
     }
 
     // Update is called once per frame
     void Update(){
-        //End Game is Ball Count is 0
-        if (ballCount == 0 && isGameActive) {
-            GameOver();
-        }
 
-        //End Game if Brick Count is 0
-        if (brickCount == 0 && isGameActive ) {
-            GameOver();
-        }
     }
 
     private void UpdateHUD() {
@@ -46,7 +40,7 @@ public class GameManager : MonoBehaviour
         UpdateHUD();
     }
 
-    public void onBrickDestroyed() {
+    public void OnBrickDestroyed() {
         brickCount--;
 
         UpdateHUD();
@@ -56,7 +50,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void onBallDestroyed() {
+    public void OnBallDestroyed() {
         ballCount--;
 
         UpdateHUD();
@@ -68,6 +62,7 @@ public class GameManager : MonoBehaviour
 
     public void GameStart() {
         brickCount = FindObjectsByType<Brick>(FindObjectsSortMode.None).Length;
+        score = 0;
         CreateBall(new Vector3(0f, -3f));
     }
 
@@ -79,13 +74,15 @@ public class GameManager : MonoBehaviour
 
     public void GameOver() {
         Time.timeScale = 0f;
-        isGameActive = false;
+        currState = GAMESTATES.OVER;
         restartButton.gameObject.SetActive(true);
     }
 
     public void RestartGame() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        Time.timeScale = 1f;
+        if(currState == GAMESTATES.OVER) {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            Time.timeScale = 1f;
+        }
     }
 
     public void LongPaddlePowerUp() {
@@ -99,14 +96,13 @@ public class GameManager : MonoBehaviour
     }
 
     public void PauseGame() {
-        if (isGameActive) { 
-            if (!isGamePaused) {
-                Time.timeScale = 0f;
-                isGamePaused = true;
-            } else {
-                Time.timeScale = 1f;
-                isGamePaused = false;
-            }
+
+        if (currState == GAMESTATES.ACTIVE) {
+            Time.timeScale = 0f;
+            currState = GAMESTATES.PAUSED;
+        } else if (currState == GAMESTATES.PAUSED) {
+            Time.timeScale = 1f;
+            currState = GAMESTATES.ACTIVE;
         }
     }
 }
