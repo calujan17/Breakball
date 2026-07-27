@@ -6,7 +6,11 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
 
-    private enum GAMESTATES { ACTIVE, PAUSED, OVER };
+    private enum GameState {
+        Active,
+        Paused,
+        GameOver
+    };
 
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private Button restartButton;
@@ -17,11 +21,11 @@ public class GameManager : MonoBehaviour
     private int ballCount = 0;
     private int brickCount;
     private int score;
-    private GAMESTATES currState;
+    private GameState currState;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start(){
-        currState = GAMESTATES.ACTIVE;
+        currState = GameState.Active;
         GameStart();
     }
 
@@ -74,12 +78,12 @@ public class GameManager : MonoBehaviour
 
     public void GameOver() {
         Time.timeScale = 0f;
-        currState = GAMESTATES.OVER;
+        currState = GameState.GameOver;
         restartButton.gameObject.SetActive(true);
     }
 
     public void RestartGame() {
-        if(currState == GAMESTATES.OVER) {
+        if(currState == GameState.GameOver) {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             Time.timeScale = 1f;
         }
@@ -97,12 +101,12 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame() {
 
-        if (currState == GAMESTATES.ACTIVE) {
+        if (currState == GameState.Active) {
             Time.timeScale = 0f;
-            currState = GAMESTATES.PAUSED;
-        } else if (currState == GAMESTATES.PAUSED) {
+            currState = GameState.Paused;
+        } else if (currState == GameState.Paused) {
             Time.timeScale = 1f;
-            currState = GAMESTATES.ACTIVE;
+            currState = GameState.Active;
         }
     }
 }
