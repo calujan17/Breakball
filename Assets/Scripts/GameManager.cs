@@ -1,10 +1,10 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
-{
+public class GameManager : MonoBehaviour {
 
     private enum GameState {
         Active,
@@ -14,29 +14,32 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private Button restartButton;
+    [SerializeField] private Button resumeButton;
     [SerializeField] private GameObject ball;
     [SerializeField] private GameObject paddle;
     [SerializeField] private Animator paddleAnimator;
 
-    private int ballCount = 0;
-    private int brickCount;
+    public int ballCount { get; private set; }
+    public int brickCount { get; private set; }
     private int score;
     private GameState currState;
+    private LevelManager levelManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start(){
+    void Start() {
         currState = GameState.Active;
+        levelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
         GameStart();
     }
 
     // Update is called once per frame
-    void Update(){
+    void Update() {
 
     }
 
     private void UpdateHUD() {
         scoreText.text =
-            $"Score: {score}  \nBricks: {brickCount} \nBalls: {ballCount}";
+            $"Score: {score}  \nBricks: {brickCount} \nBalls: {ballCount} \nGame State: {currState}";
     }
 
     public void UpdateScore(int scoreToAdd) {
@@ -65,9 +68,14 @@ public class GameManager : MonoBehaviour
     }
 
     public void GameStart() {
-        brickCount = FindObjectsByType<Brick>(FindObjectsSortMode.None).Length;
-        score = 0;
+        ResetLevelState();
+        levelManager.LoadLevel();
         CreateBall(new Vector3(0f, -3f));
+
+    }
+    
+    public void updateBrickCount(int i) {
+        brickCount += i;
     }
 
     public void CreateBall(Vector3 startPosition) {
@@ -77,16 +85,46 @@ public class GameManager : MonoBehaviour
     }
 
     public void GameOver() {
-        Time.timeScale = 0f;
+        
         currState = GameState.GameOver;
+        Time.timeScale = 0f;
+
         restartButton.gameObject.SetActive(true);
+        UpdateHUD();
     }
 
-    public void RestartGame() {
-        if(currState == GameState.GameOver) {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            Time.timeScale = 1f;
+    //public void RestartGame() {
+    //    if (currState == GameState.GameOver) {
+    //        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    //        //levelManager.RestartLevel();
+    //        Time.timeScale = 1f;
+    //    }
+    //}
+
+    public void RestartLevel() {
+
+        if (currState != GameState.GameOver &&
+            currState != GameState.Paused) {
+            return;
         }
+
+        Time.timeScale = 1f;
+
+        currState = GameState.Active;
+        resumeButton.gameObject.SetActive(false);
+        restartButton.gameObject.SetActive(false);
+
+        ResetLevelState();
+        levelManager.RestartLevel();
+        CreateBall(new Vector3(0f, -3f));
+        UpdateHUD();
+    }
+
+    public void ResetLevelState() {
+        brickCount = 0;
+        ballCount = 0;
+        score = 0;
+        paddleAnimator.Play("Idle");
     }
 
     public void LongPaddlePowerUp() {
@@ -99,14 +137,31 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void PauseGame() {
-
+    public void TogglePause() {
         if (currState == GameState.Active) {
-            Time.timeScale = 0f;
-            currState = GameState.Paused;
-        } else if (currState == GameState.Paused) {
-            Time.timeScale = 1f;
-            currState = GameState.Active;
+            PauseGame();
+        }
+        else if (currState == GameState.Paused) {
+            ResumeGame();
         }
     }
+
+    private void PauseGame() {
+        currState = GameState.Paused;
+        Time.timeScale = 0f;
+
+        resumeButton.gameObject.SetActive(true);
+        restartButton.gameObject.SetActive(true);
+        UpdateHUD();
+    }
+
+    private void ResumeGame() {
+        currState = GameState.Active;
+        Time.timeScale = 1f;
+
+        resumeButton.gameObject.SetActive(false);
+        restartButton.gameObject.SetActive(false);
+        UpdateHUD();
+    }
+
 }

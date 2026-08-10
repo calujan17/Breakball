@@ -18,7 +18,8 @@ public class PlayerController : MonoBehaviour
         moveAction.Enable();
 
         pauseAction = InputSystem.actions.FindAction("Pause");
-        //pauseAction.Enable();
+        pauseAction.performed += OnPausePerformed;
+        pauseAction.Enable();
 
         //Calculate the Limits for the play area based on the initial paddle size
         GameObject[] walls = GameObject.FindGameObjectsWithTag("Wall");
@@ -50,8 +51,17 @@ public class PlayerController : MonoBehaviour
         paddlePos.x = Mathf.Clamp(paddlePos.x,-limitX, limitX);
         transform.position = paddlePos;
 
-        if (pauseAction.WasPressedThisFrame()) {
-            gameManager.PauseGame();
-        }
+        //if (pauseAction.WasPressedThisFrame()) {
+        //    gameManager.PauseGame();
+        //}
+    }
+
+    private void OnPausePerformed(InputAction.CallbackContext context) {
+        gameManager.TogglePause();
+    }
+
+    private void OnDestroy() {
+        pauseAction.performed -= OnPausePerformed;
+        pauseAction.Disable();
     }
 }

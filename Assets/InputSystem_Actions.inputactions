@@ -28,7 +28,7 @@
                     "name": "Attack",
                     "type": "Button",
                     "id": "6c2ab1b8-8984-453a-af3d-a3c78ae1679a",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -37,7 +37,7 @@
                     "name": "Interact",
                     "type": "Button",
                     "id": "852140f2-7766-474d-8707-702459ba45f3",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "Hold",
                     "initialStateCheck": false
@@ -496,8 +496,8 @@
                 },
                 {
                     "name": "",
-                    "id": "5ee03bdc-702b-426d-bcf1-b316903de04a",
-                    "path": "<HID::Sony Interactive Entertainment Controller>/button10",
+                    "id": "cac32dbf-f516-41e2-92f6-b5ad6e92ee21",
+                    "path": "<HID::Sony Interactive Entertainment Controller>/button9",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
@@ -524,7 +524,7 @@
                     "name": "Submit",
                     "type": "Button",
                     "id": "7607c7b6-cd76-4816-beef-bd0341cfe950",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
