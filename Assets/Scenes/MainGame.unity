@@ -671,6 +671,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   moveSpeed: 20
+  gameManager: {fileID: 2051925132}
+  startPosition: {x: 0, y: -9, z: 0}
 --- !u!61 &188745152
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -898,12 +900,12 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 2
+  m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.3, g: 0.3, b: 0.3, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 1, g: 0.9333334, b: 0.5490196, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -923,7 +925,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2051925130}
+      - m_Target: {fileID: 2051925132}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: RestartLevel
         m_Mode: 1
@@ -1006,6 +1008,7 @@ MonoBehaviour:
   lootItems:
   - {fileID: 7208933726686778941, guid: c6f95b5b86f43584fbc2559bedee2682, type: 3}
   - {fileID: 6496405532397302422, guid: b7549691c7a80064e91559ba2d046a3d, type: 3}
+  gameManager: {fileID: 2051925132}
 --- !u!4 &280090068
 Transform:
   m_ObjectHideFlags: 0
@@ -1552,6 +1555,9 @@ MonoBehaviour:
   topLeft: {fileID: 2026823743}
   horizontalSpacing: 2
   verticalSpacing: 0.6
+  gameManager: {fileID: 2051925132}
+  saveManager: {fileID: 1488860775}
+  lootManager: {fileID: 280090067}
 --- !u!4 &1368647435
 Transform:
   m_ObjectHideFlags: 0
@@ -1774,12 +1780,12 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 2
+  m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.3, g: 0.3, b: 0.3, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 1, g: 0.9333334, b: 0.5490196, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1799,7 +1805,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2051925130}
+      - m_Target: {fileID: 2051925132}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: TogglePause
         m_Mode: 1
@@ -2276,7 +2282,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2051925131}
-  - component: {fileID: 2051925130}
+  - component: {fileID: 2051925132}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2284,24 +2290,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2051925130
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2051925129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f4fa37d39b677048b47bdc6189096d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  scoreText: {fileID: 116107667}
-  restartButton: {fileID: 244824742}
-  resumeButton: {fileID: 1622325510}
-  ball: {fileID: 5033081250737462704, guid: b980a3ec224cb494eae18532422337f5, type: 3}
-  paddle: {fileID: 188745150}
-  paddleAnimator: {fileID: 188745156}
 --- !u!4 &2051925131
 Transform:
   m_ObjectHideFlags: 0
@@ -2317,6 +2305,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2051925132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2051925129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f4fa37d39b677048b47bdc6189096d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  scoreText: {fileID: 116107667}
+  restartButton: {fileID: 244824742}
+  resumeButton: {fileID: 1622325510}
+  ball: {fileID: 5033081250737462704, guid: b980a3ec224cb494eae18532422337f5, type: 3}
+  paddle: {fileID: 188745151}
+  paddleAnimator: {fileID: 188745156}
 --- !u!1 &2122116316
 GameObject:
   m_ObjectHideFlags: 0

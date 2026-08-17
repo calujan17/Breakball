@@ -5,11 +5,13 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 15.0f;
     [SerializeField] private GameManager gameManager;
+    [SerializeField] private Vector3 startPosition;
 
     private float limitX;
     private InputAction moveAction;
     private InputAction pauseAction;
     private float playArea;
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start(){
@@ -64,4 +66,9 @@ public class PlayerController : MonoBehaviour
         pauseAction.performed -= OnPausePerformed;
         pauseAction.Disable();
     }
+
+    public void SetStartPosition() {
+         transform.position = startPosition;
+    }
+
 }

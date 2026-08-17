@@ -2,9 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 
-public class PowerUpMovement : MonoBehaviour
-{
-
+public class PowerUpMovement : MonoBehaviour{
     
     private enum POWERUPS { BALL3, LONGPADDLE, STICKYPADDLE };
     [SerializeField] private POWERUPS powerup;
@@ -42,6 +40,10 @@ public class PowerUpMovement : MonoBehaviour
                     Debug.Log("Unknown PowerUp");
                     break;
             }
+        }
+
+        if (collision.gameObject.CompareTag("OutArea")) {
+            Destroy(gameObject);
         }
     }
 

@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private Button restartButton;
     [SerializeField] private Button resumeButton;
     [SerializeField] private GameObject ball;
-    [SerializeField] private GameObject paddle;
+    [SerializeField] private PlayerController paddle;
     [SerializeField] private Animator paddleAnimator;
 
     public int ballCount { get; private set; }
@@ -122,6 +122,7 @@ public class GameManager : MonoBehaviour {
         ballCount = 0;
         score = 0;
         paddleAnimator.Play("Idle");
+        paddle.SetStartPosition();
     }
 
     public void LongPaddlePowerUp() {
