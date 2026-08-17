@@ -79,7 +79,12 @@ public class GameManager : MonoBehaviour {
     }
 
     public void CreateBall(Vector3 startPosition) {
-        Instantiate(ball, startPosition, ball.transform.rotation);
+        GameObject newBall = Instantiate(
+            ball, 
+            startPosition, 
+            ball.transform.rotation);
+        BallMovement ballMovement = newBall.GetComponent<BallMovement>();
+        ballMovement.SetGameManager(this);
         ballCount++;
         UpdateHUD();
     }
@@ -92,14 +97,6 @@ public class GameManager : MonoBehaviour {
         restartButton.gameObject.SetActive(true);
         UpdateHUD();
     }
-
-    //public void RestartGame() {
-    //    if (currState == GameState.GameOver) {
-    //        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    //        //levelManager.RestartLevel();
-    //        Time.timeScale = 1f;
-    //    }
-    //}
 
     public void RestartLevel() {
 

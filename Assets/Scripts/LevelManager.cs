@@ -7,15 +7,15 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Transform topLeft;
     [SerializeField] private float horizontalSpacing = 2f;
     [SerializeField] private float verticalSpacing = 0.6f;
+    [SerializeField] private GameManager gameManager;
+    [SerializeField] private SaveManager saveManager;
+    [SerializeField] private LootManager lootManager;
 
-    private SaveManager saveManager;
-    private GameManager gameManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        saveManager = GameObject.Find("SaveManager").GetComponent<SaveManager>();
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+    void Start(){
+        //saveManager = GameObject.Find("SaveManager").GetComponent<SaveManager>();
+        //gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -46,10 +46,14 @@ public class LevelManager : MonoBehaviour
                 if (brickType == 0)
                     continue;
 
-                Instantiate(
+                GameObject newBrick = Instantiate(
                     brickPreFabs[brickType - 1],
                     GridToWorld(row, col),
                     Quaternion.identity);
+
+                Brick brick = newBrick.GetComponent<Brick>();
+                brick.SetGameManager(gameManager);
+                brick.SetLootManager(lootManager);
 
                 gameManager.updateBrickCount(1);
             }

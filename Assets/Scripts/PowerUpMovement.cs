@@ -9,7 +9,7 @@ public class PowerUpMovement : MonoBehaviour
     private enum POWERUPS { BALL3, LONGPADDLE, STICKYPADDLE };
     [SerializeField] private POWERUPS powerup;
     [SerializeField] private float speed = 7.5f;
-    [SerializeField] private GameManager gameManager;
+    private GameManager gameManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start(){
@@ -43,5 +43,9 @@ public class PowerUpMovement : MonoBehaviour
                     break;
             }
         }
+    }
+
+    public void SetGameManager(GameManager gameManager) {
+        this.gameManager = gameManager;
     }
 }

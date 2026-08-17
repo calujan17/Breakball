@@ -5,8 +5,8 @@ public class Brick : MonoBehaviour
 {
     [SerializeField] private int hp = 1;
     [SerializeField] private int brickValue;
-    [SerializeField] private GameManager gameManager;
-    [SerializeField] private LootManager lootManager;
+    private GameManager gameManager;
+    private LootManager lootManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start() {
@@ -24,6 +24,14 @@ public class Brick : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+    }
+
+    public void SetGameManager(GameManager gameManager) {
+        this.gameManager = gameManager;
+    }
+
+    public void SetLootManager(LootManager lootManager) {
+        this.lootManager = lootManager;
     }
 
 }

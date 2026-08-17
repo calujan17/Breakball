@@ -4,7 +4,7 @@ public class BallMovement : MonoBehaviour
 
     [SerializeField] private float ballSpeed = 10.0f;
     [SerializeField] private AudioSource audio;
-    [SerializeField] private GameManager gameManager;
+    private GameManager gameManager;
     private Rigidbody2D rb;
     private const float MinimumVerticalVelocity = 3f;
     private const int WallPentalty = 5;
@@ -62,5 +62,8 @@ public class BallMovement : MonoBehaviour
             gameManager.OnBallDestroyed();
             Destroy(gameObject);
         }
+    }
+    public void SetGameManager(GameManager gameManager) {
+        this.gameManager = gameManager;
     }
 }
