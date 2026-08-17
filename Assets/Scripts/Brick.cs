@@ -5,13 +5,12 @@ public class Brick : MonoBehaviour
 {
     [SerializeField] private int hp = 1;
     [SerializeField] private int brickValue;
-    private GameManager gameManager;
-    private LootManager lootManager;
+    [SerializeField] private GameManager gameManager;
+    [SerializeField] private LootManager lootManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start() {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        lootManager = GameObject.Find("LootManager").GetComponent<LootManager>();
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {

@@ -4,15 +4,15 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 15.0f;
+    [SerializeField] private GameManager gameManager;
+
     private float limitX;
     private InputAction moveAction;
     private InputAction pauseAction;
     private float playArea;
-    private GameManager gameManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start(){
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         moveAction = InputSystem.actions.FindAction("Move");
         moveAction.Enable();

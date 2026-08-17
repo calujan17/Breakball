@@ -4,17 +4,16 @@ public class BallMovement : MonoBehaviour
 
     [SerializeField] private float ballSpeed = 10.0f;
     [SerializeField] private AudioSource audio;
+    [SerializeField] private GameManager gameManager;
     private Rigidbody2D rb;
     private const float MinimumVerticalVelocity = 3f;
     private const int WallPentalty = 5;
 
-    private GameManager gameManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start(){
 
         rb = GetComponent<Rigidbody2D>();
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         LaunchBall();
         
     }
